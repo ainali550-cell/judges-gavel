@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — LexVault</title>
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/base.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+  <link rel="stylesheet" href="../css/footer.css"/>
+  <link rel="stylesheet" href="../css/checkout.css"/>
+  <!-- Stripe.js loaded in real deployment: <script src="https://js.stripe.com/v3/"></script> -->
+</head>
+<body>
+
+  <header class="nav-wrapper" id="navbar">
+    <nav class="nav-inner">
+      <a href="../index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Lex<strong>Vault</strong></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-ghost">Sign In</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="login.html">Sign In</a>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>Secure Checkout</h1>
+      <p>Your payment is encrypted and processed by Stripe</p>
+    </div>
+  </div>
+
+  <section class="checkout-section">
+    <div class="container">
+      <div class="checkout-layout">
+
+        <!-- Order Summary -->
+        <div class="order-summary" id="orderSummary">
+          <h2>Order Summary</h2>
+          <div class="order-book" id="orderBook">
+            <!-- Populated by JS -->
+          </div>
+          <div class="order-totals">
+            <div class="order-row">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div class="order-row">
+              <span>Processing fee</span>
+              <span>$0.00</span>
+            </div>
+            <div class="order-row total">
+              <span>Total</span>
+              <span id="totalAmount">$0.00</span>
+            </div>
+          </div>
+          <div class="secure-badges">
+            <div class="secure-badge">🔒 256-bit SSL Encryption</div>
+            <div class="secure-badge">🌍 International Payments Accepted</div>
+            <div class="secure-badge">📄 Instant PDF Delivery</div>
+          </div>
+          <div class="payment-methods">
+            <p>Accepted payment methods:</p>
+            <div class="pm-icons">
+              <span>💳 Visa</span>
+              <span>💳 Mastercard</span>
+              <span>💳 Amex</span>
+              <span>🏦 Bank Transfer</span>
+              <span>🍎 Apple Pay</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="payment-form-card">
+          <h2>Payment Details</h2>
+
+          <!-- Account Info -->
+          <div class="form-section">
+            <h3>Your Account</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="firstName" placeholder="John" required/>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lastName" placeholder="Smith" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="emailAddr" placeholder="you@lawfirm.com" required/>
+            </div>
+            <div class="form-group">
+              <label>Profession</label>
+              <select id="profession">
+                <option value="">Select your role…</option>
+                <option value="attorney">Attorney / Lawyer</option>
+                <option value="judge">Judge</option>
+                <option value="clerk">Law Clerk</option>
+                <option value="professor">Law Professor</option>
+                <option value="student">Law Student</option>
+                <option value="paralegal">Paralegal</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Card Info (Stripe Element placeholder) -->
+          <div class="form-section">
+            <h3>Card Information</h3>
+            <div class="alert alert-info">
+              💡 <strong>For deployment:</strong> Replace the card fields below with a real Stripe Elements mount point
+              (<code>stripe.elements()</code>). Your Stripe publishable key goes in <code>js/checkout.js</code>.
+            </div>
+            <div class="form-group">
+              <label>Card Number</label>
+              <div class="card-input-wrap">
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19"/>
+                <span class="card-icon">💳</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="text" id="cardExpiry" placeholder="MM / YY" maxlength="7"/>
+              </div>
+              <div class="form-group">
+                <label>CVC</label>
+                <input type="text" id="cardCvc" placeholder="123" maxlength="4"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Name on Card</label>
+              <input type="text" id="cardName" placeholder="John Smith"/>
+            </div>
+          </div>
+
+          <!-- Billing Country -->
+          <div class="form-section">
+            <h3>Billing Address</h3>
+            <div class="form-group">
+              <label>Country</label>
+              <select id="country">
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="AU">Australia</option>
+                <option value="PK">Pakistan</option>
+                <option value="IN">India</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>ZIP / Postal Code</label>
+              <input type="text" id="zip" placeholder="10001"/>
+            </div>
+          </div>
+
+          <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;">
+            <input type="checkbox" id="agreeTerms" style="width:auto;margin-top:3px;"/>
+            <label for="agreeTerms" style="font-size:0.85rem;color:var(--text-muted);">
+              I agree to the <a href="terms.html" style="color:var(--gold);">Terms of Service</a> and
+              <a href="privacy.html" style="color:var(--gold);">Privacy Policy</a>. I understand this is a digital product and no physical item will be shipped.
+            </label>
+          </div>
+
+          <div id="paymentAlert"></div>
+
+          <button class="btn-primary btn-large btn-pay" id="payBtn" onclick="handleCheckout()">
+            🔒 Complete Purchase — <span id="payBtnAmount">$0.00</span>
+          </button>
+          <p class="checkout-note">
+            After payment, your PDF will be sent to your email immediately. You can also download it from your dashboard.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2025 LexVault. Payments secured by Stripe. International transactions supported.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/books.js"></script>
+  <script src="../js/checkout.js"></script>
+</body>
+</html>
