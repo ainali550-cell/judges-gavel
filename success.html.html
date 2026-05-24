@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Purchase Successful — LexVault</title>
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/base.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+  <link rel="stylesheet" href="../css/footer.css"/>
+  <style>
+    .success-section {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+    }
+    .success-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .success-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, #d4edda, #b8dfc4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 28px;
+      animation: pop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .success-card h1 { color: var(--navy); margin-bottom: 12px; font-size: 2rem; }
+    .success-card p  { color: var(--text-muted); margin-bottom: 24px; }
+    .success-book    { background: var(--cream); border-radius: var(--radius-md); padding: 20px; margin-bottom: 28px; }
+    .success-book h3 { font-size: 1rem; color: var(--navy); margin-bottom: 4px; }
+    .success-book p  { font-size: 0.85rem; margin-bottom: 0; }
+    .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <header class="nav-wrapper" id="navbar">
+    <nav class="nav-inner">
+      <a href="../index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Lex<strong>Vault</strong></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+    </div>
+  </header>
+
+  <section class="success-section">
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h1>Purchase Complete!</h1>
+      <p>Thank you for your order. Your eBook has been sent to your email and is ready to download below.</p>
+      <div class="success-book" id="successBook">
+        <h3>Loading your order…</h3>
+      </div>
+      <p style="font-size:0.85rem;">A receipt has been sent to your email address. You can also access your downloads anytime from your dashboard.</p>
+      <div class="success-actions">
+        <a href="dashboard.html" class="btn-primary">Go to My Library</a>
+        <a href="catalog.html" class="btn-ghost" style="border:1.5px solid var(--border);">Browse More eBooks</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2025 LexVault. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/books.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const bookId = parseInt(params.get('id'));
+    const book   = BOOKS.find(b => b.id === bookId);
+    const el     = document.getElementById('successBook');
+    if (book && el) {
+      el.innerHTML = `
+        <div style="font-size:2rem; margin-bottom:8px;">${book.emoji}</div>
+        <h3>${book.title}</h3>
+        <p style="color:var(--text-muted);font-size:0.85rem;">${book.category} · ${book.pages} pages · PDF</p>
+        <p style="margin-top:12px;"><strong style="color:var(--gold);">$${book.price}.00</strong> — Payment confirmed</p>
+      `;
+    }
+  </script>
+</body>
+</html>
