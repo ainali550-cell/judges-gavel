@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LexVault — Legal eBook Library for US Lawyers & Judges</title>
+  <meta name="description" content="Premium legal eBooks for US attorneys and judiciary. Statutes, case law guides, and practice resources from $10–$15."/>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/variables.css"/>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/nav.css"/>
+  <link rel="stylesheet" href="css/hero.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+  <link rel="stylesheet" href="css/footer.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-wrapper" id="navbar">
+    <nav class="nav-inner">
+      <a href="index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="28" height="28" rx="6" fill="var(--gold)"/>
+          <path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Lex<strong>Vault</strong></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="pages/catalog.html">Catalog</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="pages/login.html" class="btn-ghost">Sign In</a>
+        <a href="pages/register.html" class="btn-primary">Get Started</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="pages/catalog.html">Catalog</a>
+      <a href="pages/about.html">About</a>
+      <a href="pages/contact.html">Contact</a>
+      <a href="pages/login.html">Sign In</a>
+      <a href="pages/register.html" class="btn-primary">Get Started</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Trusted by Legal Professionals</div>
+      <h1 class="hero-title">
+        The Premium Legal<br/>
+        <em>eBook Library</em><br/>
+        for US Law
+      </h1>
+      <p class="hero-subtitle">
+        Comprehensive statutes, case law guides, practice manuals, and judicial references — curated for attorneys and judges. From <strong>$10 to $15</strong> per title.
+      </p>
+      <div class="hero-cta">
+        <a href="pages/catalog.html" class="btn-primary btn-large">Browse the Catalog</a>
+        <a href="pages/about.html" class="btn-outline btn-large">Learn More</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Legal Titles</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">12K+</span><span class="stat-label">Legal Professionals</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">$10–15</span><span class="stat-label">Per eBook</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="book-stack">
+        <div class="book b1"><span>Federal Rules of Evidence</span></div>
+        <div class="book b2"><span>Constitutional Law 2025</span></div>
+        <div class="book b3"><span>Civil Procedure Manual</span></div>
+        <div class="book b4"><span>Criminal Defense Guide</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section categories-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Browse by Practice Area</h2>
+        <p>Expertly curated resources across every domain of US law</p>
+      </div>
+      <div class="categories-grid">
+        <a href="pages/catalog.html?cat=constitutional" class="cat-card">
+          <div class="cat-icon">⚖️</div>
+          <h3>Constitutional Law</h3>
+          <p>First Amendment, due process, equal protection and landmark precedents</p>
+          <span class="cat-count">48 titles</span>
+        </a>
+        <a href="pages/catalog.html?cat=criminal" class="cat-card">
+          <div class="cat-icon">🔏</div>
+          <h3>Criminal Law</h3>
+          <p>Defense strategies, prosecutorial guides, sentencing guidelines</p>
+          <span class="cat-count">72 titles</span>
+        </a>
+        <a href="pages/catalog.html?cat=civil" class="cat-card">
+          <div class="cat-icon">📋</div>
+          <h3>Civil Procedure</h3>
+          <p>Federal Rules, discovery practice, motion practice, appellate procedure</p>
+          <span class="cat-count">65 titles</span>
+        </a>
+        <a href="pages/catalog.html?cat=corporate" class="cat-card">
+          <div class="cat-icon">🏛️</div>
+          <h3>Corporate & Business</h3>
+          <p>M&A, securities law, corporate governance, commercial contracts</p>
+          <span class="cat-count">89 titles</span>
+        </a>
+        <a href="pages/catalog.html?cat=family" class="cat-card">
+          <div class="cat-icon">👨‍👩‍👧</div>
+          <h3>Family Law</h3>
+          <p>Divorce, custody, adoption, domestic relations across states</p>
+          <span class="cat-count">41 titles</span>
+        </a>
+        <a href="pages/catalog.html?cat=ip" class="cat-card">
+          <div class="cat-icon">💡</div>
+          <h3>Intellectual Property</h3>
+          <p>Patent, trademark, copyright, trade secret law and litigation</p>
+          <span class="cat-count">53 titles</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED BOOKS -->
+  <section class="section featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured eBooks</h2>
+        <a href="pages/catalog.html" class="see-all">View All →</a>
+      </div>
+      <div class="books-grid" id="featuredBooks">
+        <!-- Dynamically rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section how-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Simple. Secure. Instant.</h2>
+        <p>Three steps to access expert legal resources</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Browse & Choose</h3>
+          <p>Search our curated catalog by practice area, jurisdiction, or keyword. Preview table of contents before purchasing.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Secure Checkout</h3>
+          <p>Pay safely via Stripe — credit/debit cards or international bank transfer. All major currencies accepted.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Instant Download</h3>
+          <p>Receive your PDF immediately in your dashboard and via email. Read on any device, forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Trusted by Legal Professionals</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial">
+          <p>"LexVault's Federal Evidence guide saved me hours of research during trial prep. The price is unbeatable for the quality."</p>
+          <div class="testimonial-author">
+            <strong>Sarah Mitchell</strong>
+            <span>Senior Partner, Mitchell & Coles LLP, New York</span>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>"As a federal judge, I appreciate having concise, well-cited references on complex procedural matters. Highly recommended."</p>
+          <div class="testimonial-author">
+            <strong>Hon. James R. Whitfield</strong>
+            <span>U.S. District Court, Northern District of Illinois</span>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>"I've purchased six titles so far. The Constitutional Law series is exceptional — thorough, current, and practical."</p>
+          <div class="testimonial-author">
+            <strong>Dr. Patricia Osei</strong>
+            <span>Law Professor, Georgetown University Law Center</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Start Building Your Legal Library Today</h2>
+      <p>Access 500+ premium titles from $10. Instant download. Lifetime access.</p>
+      <a href="pages/catalog.html" class="btn-primary btn-large">Browse All eBooks</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Lex<strong>Vault</strong></span>
+          </a>
+          <p>Premium legal eBooks for US attorneys and judiciary. Trusted, affordable, instant.</p>
+          <div class="payment-badges">
+            <span class="badge">💳 Visa</span>
+            <span class="badge">💳 Mastercard</span>
+            <span class="badge">🌐 International</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Library</h4>
+          <ul>
+            <li><a href="pages/catalog.html">All eBooks</a></li>
+            <li><a href="pages/catalog.html?cat=constitutional">Constitutional Law</a></li>
+            <li><a href="pages/catalog.html?cat=criminal">Criminal Law</a></li>
+            <li><a href="pages/catalog.html?cat=civil">Civil Procedure</a></li>
+            <li><a href="pages/catalog.html?cat=corporate">Corporate Law</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="pages/register.html">Register</a></li>
+            <li><a href="pages/login.html">Sign In</a></li>
+            <li><a href="pages/dashboard.html">My Library</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="pages/terms.html">Terms of Service</a></li>
+            <li><a href="pages/privacy.html">Privacy Policy</a></li>
+            <li><a href="pages/refund.html">Refund Policy</a></li>
+            <li><a href="pages/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 LexVault. All rights reserved. Not affiliated with any government or bar association.</p>
+        <p>Payments processed securely via <strong>Stripe</strong> — supporting international transactions.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
