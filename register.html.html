@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Account — LexVault</title>
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/base.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+  <link rel="stylesheet" href="../css/footer.css"/>
+  <link rel="stylesheet" href="../css/auth.css"/>
+</head>
+<body>
+  <header class="nav-wrapper" id="navbar">
+    <nav class="nav-inner">
+      <a href="../index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Lex<strong>Vault</strong></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-ghost">Sign In</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="login.html">Sign In</a>
+    </div>
+  </header>
+
+  <section class="auth-section">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <svg width="40" height="40" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>LexVault</span>
+      </div>
+      <h1>Create Account</h1>
+      <p class="auth-sub">Join 12,000+ legal professionals</p>
+      <div id="regAlert"></div>
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="regFirst" placeholder="John" required/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="regLast" placeholder="Smith" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="regEmail" placeholder="you@lawfirm.com" required/>
+      </div>
+      <div class="form-group">
+        <label>Profession</label>
+        <select id="regRole">
+          <option value="">Select your role…</option>
+          <option>Attorney / Lawyer</option>
+          <option>Judge</option>
+          <option>Law Clerk</option>
+          <option>Law Professor</option>
+          <option>Law Student</option>
+          <option>Paralegal</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="regPass" placeholder="Minimum 8 characters" required/>
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="regPass2" placeholder="Repeat password" required/>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px;">
+        <input type="checkbox" id="regTerms" style="width:auto;margin-top:3px;"/>
+        <label for="regTerms" style="font-size:0.85rem;color:var(--text-muted);">
+          I agree to the <a href="terms.html" style="color:var(--gold);">Terms of Service</a> and <a href="privacy.html" style="color:var(--gold);">Privacy Policy</a>
+        </label>
+      </div>
+      <button class="btn-primary btn-large" style="width:100%;justify-content:center;" onclick="handleRegister()">Create Account</button>
+      <p class="auth-switch">Already have an account? <a href="login.html">Sign in</a></p>
+    </div>
+  </section>
+
+  <script src="../js/nav.js"></script>
+  <script>
+    function handleRegister() {
+      const alertEl = document.getElementById('regAlert');
+      const pass  = document.getElementById('regPass').value;
+      const pass2 = document.getElementById('regPass2').value;
+      const email = document.getElementById('regEmail').value;
+      const terms = document.getElementById('regTerms').checked;
+      if (!email || !pass || !document.getElementById('regFirst').value) {
+        alertEl.innerHTML = '<div class="alert alert-error">Please fill in all required fields.</div>'; return;
+      }
+      if (pass !== pass2) {
+        alertEl.innerHTML = '<div class="alert alert-error">Passwords do not match.</div>'; return;
+      }
+      if (pass.length < 8) {
+        alertEl.innerHTML = '<div class="alert alert-error">Password must be at least 8 characters.</div>'; return;
+      }
+      if (!terms) {
+        alertEl.innerHTML = '<div class="alert alert-error">Please agree to the Terms of Service.</div>'; return;
+      }
+      // 🔧 Connect to your auth backend (Firebase Auth, Supabase, etc.)
+      alertEl.innerHTML = '<div class="alert alert-info">🔄 Creating your account… (connect backend in js/auth.js)</div>';
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
+    }
+  </script>
+</body>
+</html>
