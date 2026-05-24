@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Library — LexVault</title>
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/base.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+  <link rel="stylesheet" href="../css/footer.css"/>
+  <style>
+    .dashboard { padding: 48px 0 96px; }
+    .dashboard-header {
+      background: var(--navy);
+      padding: 48px 0;
+      color: var(--white);
+      margin-bottom: 0;
+    }
+    .dashboard-header h1 { color: var(--white); }
+    .dashboard-header p  { color: rgba(255,255,255,0.65); margin-top: 8px; }
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .dash-sidebar {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      height: fit-content;
+    }
+    .dash-sidebar h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-family: var(--ff-body);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .dash-nav { list-style: none; }
+    .dash-nav li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .dash-nav li a:hover,
+    .dash-nav li a.active { background: var(--gold-pale); color: var(--navy); }
+    .dash-main {}
+    .dash-purchases {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+      gap: 20px;
+    }
+    .purchase-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .purchase-icon {
+      width: 48px; height: 60px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .purchase-title { font-family: var(--ff-display); font-size: 0.95rem; margin-bottom: 4px; }
+    .purchase-meta  { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold-pale);
+      color: var(--navy);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-download:hover { background: var(--gold); }
+    .empty-state {
+      text-align: center;
+      padding: 64px;
+      color: var(--text-muted);
+    }
+    .empty-state h3 { color: var(--navy); margin-bottom: 12px; }
+    @media (max-width: 768px) {
+      .dash-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrapper" id="navbar">
+    <nav class="nav-inner">
+      <a href="../index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Lex<strong>Vault</strong></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-ghost">Sign Out</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="login.html">Sign Out</a>
+    </div>
+  </header>
+
+  <div class="dashboard-header">
+    <div class="container">
+      <h1>My Library</h1>
+      <p>Welcome back! Here are your purchased eBooks.</p>
+    </div>
+  </div>
+
+  <section class="dashboard">
+    <div class="container">
+      <div class="dash-layout">
+        <aside class="dash-sidebar">
+          <h3>Account</h3>
+          <ul class="dash-nav">
+            <li><a class="active">📚 My Library</a></li>
+            <li><a href="catalog.html">🔍 Browse Catalog</a></li>
+            <li><a>🧾 Purchase History</a></li>
+            <li><a>⚙️ Settings</a></li>
+            <li><a href="login.html">🚪 Sign Out</a></li>
+          </ul>
+        </aside>
+        <div class="dash-main">
+          <div class="alert alert-info" style="margin-bottom:28px;">
+            🔧 <strong>Developer note:</strong> Connect your auth backend to load real purchases here. 
+            Purchases are stored in your database and served after Stripe payment confirmation.
+          </div>
+          <!-- Sample purchased books (demo) -->
+          <div class="dash-purchases" id="dashPurchases">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/books.js"></script>
+  <script>
+    // Demo: show the first 3 books as "purchased"
+    const demo = BOOKS.slice(0,3);
+    const container = document.getElementById('dashPurchases');
+    container.innerHTML = demo.map(b => `
+      <div class="purchase-card">
+        <div class="purchase-icon" style="background:linear-gradient(135deg,${b.color},${b.color}aa)">${b.emoji}</div>
+        <div>
+          <div class="purchase-title">${b.title}</div>
+          <div class="purchase-meta">${b.category} · ${b.pages} pages · PDF</div>
+          <a class="btn-download" onclick="alert('In production: serve secure PDF download link from your backend.')">
+            ⬇️ Download PDF
+          </a>
+        </div>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>
