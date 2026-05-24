@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About LexVault</title>
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/base.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+  <link rel="stylesheet" href="../css/footer.css"/>
+  <style>
+    .prose-section { padding: 72px 0; max-width: 760px; margin: 0 auto; }
+    .prose-section h2 { margin: 40px 0 16px; font-size: 1.6rem; }
+    .prose-section h3 { margin: 28px 0 10px; }
+    .prose-section p  { margin-bottom: 16px; color: var(--text-mid); line-height: 1.8; }
+    .prose-section ul { margin: 12px 0 16px 24px; color: var(--text-mid); }
+    .prose-section ul li { margin-bottom: 8px; line-height: 1.7; list-style: disc; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 48px 0; }
+    .about-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+    }
+    .about-card h3 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <header class="nav-wrapper" id="navbar">
+    <nav class="nav-inner">
+      <a href="../index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Lex<strong>Vault</strong></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-ghost">Sign In</a>
+        <a href="register.html" class="btn-primary">Get Started</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Sign In</a>
+      <a href="register.html" class="btn-primary">Get Started</a>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>About LexVault</h1>
+      <p>Making expert legal knowledge accessible and affordable</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose-section" style="padding:0; max-width:800px; margin: 0 auto;">
+        <h2>Our Mission</h2>
+        <p>LexVault was founded to solve a simple problem: high-quality legal reference materials were priced out of reach for many practitioners, students, and judges. We believe that access to expert legal knowledge should not require a law firm budget.</p>
+        <p>Our curated library of eBooks covers every major practice area in US law — written and reviewed by practicing attorneys, retired judges, and law school professors. Every title is priced between <strong>$10 and $15</strong>, with instant PDF delivery and lifetime access.</p>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>⚖️ For Attorneys</h3>
+            <p>Practice-ready guides that go beyond black-letter law. Strategy, tactics, drafting templates, and jurisdiction-specific analysis.</p>
+          </div>
+          <div class="about-card">
+            <h3>🏛️ For Judges</h3>
+            <p>Concise, citation-rich reference materials for procedural and substantive issues — written with judicial economy in mind.</p>
+          </div>
+          <div class="about-card">
+            <h3>🌍 International Access</h3>
+            <p>We accept payments from anywhere in the world via Stripe — credit cards, debit cards, and bank transfers supported.</p>
+          </div>
+          <div class="about-card">
+            <h3>📄 Instant Delivery</h3>
+            <p>Every purchase delivers a high-quality, bookmarked PDF instantly to your email and dashboard. No waiting, no shipping.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg><span>Lex<strong>Vault</strong></span></a>
+          <p>Premium legal eBooks for US attorneys and judiciary.</p>
+        </div>
+        <div class="footer-col"><h4>Library</h4><ul><li><a href="catalog.html">All eBooks</a></li></ul></div>
+        <div class="footer-col"><h4>Account</h4><ul><li><a href="register.html">Register</a></li><li><a href="login.html">Sign In</a></li></ul></div>
+        <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 LexVault. All rights reserved.</p></div>
+    </div>
+  </footer>
+  <script src="../js/nav.js"></script>
+</body>
+</html>
