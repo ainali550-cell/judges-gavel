@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — Federal Rules of Evidence · LexVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:       #0d1b2a;
+      --navy-mid:   #162132;
+      --navy-light: #1e2f45;
+      --gold:       #c8993a;
+      --gold-light: #e8b84b;
+      --gold-pale:  #f5e6c0;
+      --cream:      #faf7f2;
+      --white:      #ffffff;
+      --text-main:  #1a1208;
+      --text-mid:   #4a4030;
+      --text-muted: #7a6e5e;
+      --border:     #e2d9c8;
+      --green:      #1a7a3a;
+      --green-light:#f0faf4;
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-body:    'DM Sans', system-ui, sans-serif;
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --shadow-sm:  0 2px 8px rgba(13,27,42,0.08);
+      --shadow-md:  0 8px 32px rgba(13,27,42,0.14);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --max-width:  1100px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-body); background: var(--cream); color: var(--text-main); line-height: 1.65; overflow-x: hidden; padding-top: 72px; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    h1,h2,h3,h4 { font-family: var(--ff-display); line-height: 1.2; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    .nav-wrapper { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(250,247,242,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; height: 72px; display: flex; align-items: center; gap: 16px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: var(--ff-display); font-size: 1.4rem; color: var(--navy); flex-shrink: 0; }
+    .logo strong { color: var(--gold); }
+    .nav-secure { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+    .nav-secure span { color: var(--green); font-size: 1rem; }
+
+    /* PROGRESS BAR */
+    .progress-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .progress-steps { display: flex; align-items: center; justify-content: center; gap: 0; max-width: 600px; margin: 0 auto; }
+    .prog-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; }
+    .prog-step:not(:last-child)::after { content: ''; position: absolute; top: 16px; left: 50%; right: -50%; height: 2px; background: var(--border); z-index: 0; }
+    .prog-step.done:not(:last-child)::after, .prog-step.active:not(:last-child)::after { background: var(--gold); }
+    .prog-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--border); color: var(--white); font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; transition: all var(--transition); }
+    .prog-step.done .prog-circle { background: var(--gold); }
+    .prog-step.active .prog-circle { background: var(--navy); box-shadow: 0 0 0 4px rgba(13,27,42,0.15); }
+    .prog-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+    .prog-step.active .prog-label { color: var(--navy); }
+    .prog-step.done .prog-label { color: var(--gold); }
+
+    /* LAYOUT */
+    .checkout-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; padding: 48px 0 80px; align-items: start; }
+
+    /* ORDER SUMMARY */
+    .order-summary { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 28px; position: sticky; top: 96px; }
+    .order-summary h3 { font-family: var(--ff-display); font-size: 1.2rem; color: var(--navy); margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .order-item { display: flex; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .order-item-cover { width: 60px; height: 80px; background: linear-gradient(135deg, #1e3a5f, #2d5a8a); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .order-item-info { flex: 1; }
+    .order-item-cat { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); margin-bottom: 4px; }
+    .order-item-title { font-family: var(--ff-display); font-size: 0.95rem; color: var(--navy); margin-bottom: 4px; line-height: 1.3; }
+    .order-item-meta { font-size: 0.78rem; color: var(--text-muted); }
+    .order-totals { display: flex; flex-direction: column; gap: 10px; }
+    .total-row { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-mid); }
+    .total-row.final { font-weight: 700; font-size: 1.15rem; color: var(--navy); padding-top: 12px; border-top: 2px solid var(--border); }
+    .total-row.final span:last-child { color: var(--gold); }
+    .security-badges { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .sec-badge { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-muted); }
+    .sec-badge span { font-size: 1rem; }
+
+    /* MAIN CHECKOUT STEPS */
+    .checkout-main h2 { font-family: var(--ff-display); font-size: 1.6rem; color: var(--navy); margin-bottom: 8px; }
+    .checkout-main .section-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 32px; }
+
+    /* BANK DETAILS CARD */
+    .bank-card {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .bank-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(200,153,58,0.15), transparent 70%);
+    }
+    .bank-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .hbl-logo { background: var(--gold); color: var(--navy); font-family: var(--ff-display); font-weight: 800; font-size: 1.1rem; padding: 8px 14px; border-radius: var(--radius-sm); flex-shrink: 0; }
+    .bank-card-header-text h3 { color: var(--white); font-family: var(--ff-display); font-size: 1.2rem; }
+    .bank-card-header-text p { color: rgba(255,255,255,0.55); font-size: 0.82rem; }
+    .bank-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .bank-detail-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 16px; position: relative; }
+    .bank-detail-item.full-width { grid-column: 1 / -1; }
+    .bank-detail-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+    .bank-detail-value { font-size: 1rem; font-weight: 700; color: var(--white); font-family: var(--ff-display); letter-spacing: 0.03em; }
+    .bank-detail-value.iban { font-size: 0.9rem; letter-spacing: 0.06em; color: var(--gold-light); }
+    .copy-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(200,153,58,0.2); border: 1px solid rgba(200,153,58,0.3);
+      color: var(--gold-light); font-size: 0.7rem; font-weight: 600;
+      padding: 3px 8px; border-radius: 4px; cursor: pointer;
+      transition: all var(--transition); font-family: var(--ff-body);
+    }
+    .copy-btn:hover { background: rgba(200,153,58,0.35); }
+    .copy-btn.copied { background: rgba(26,122,58,0.3); border-color: rgba(26,122,58,0.4); color: #6ddb97; }
+    .amount-highlight { background: linear-gradient(135deg, rgba(200,153,58,0.2), rgba(200,153,58,0.08)); border: 1px solid rgba(200,153,58,0.4); border-radius: var(--radius-sm); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+    .amount-highlight-label { color: rgba(255,255,255,0.65); font-size: 0.9rem; }
+    .amount-highlight-value { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 800; color: var(--gold); }
+
+    /* PAYMENT FORM */
+    .payment-form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px; margin-bottom: 24px; }
+    .payment-form-card h3 { font-family: var(--ff-display); font-size: 1.2rem; color: var(--navy); margin-bottom: 8px; }
+    .payment-form-card .form-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-mid); margin-bottom: 8px; }
+    .form-label .required { color: #e04040; margin-left: 3px; }
+    .form-input {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      font-family: var(--ff-body); font-size: 0.95rem; color: var(--text-main);
+      background: var(--cream); transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200,153,58,0.12); background: var(--white); }
+    .form-input::placeholder { color: var(--text-muted); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+    .upload-area {
+      border: 2px dashed var(--border); border-radius: var(--radius-sm);
+      padding: 28px; text-align: center; cursor: pointer;
+      transition: all var(--transition); background: var(--cream);
+    }
+    .upload-area:hover { border-color: var(--gold); background: var(--gold-pale); }
+    .upload-area.has-file { border-color: var(--green); background: var(--green-light); border-style: solid; }
+    .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .upload-text { font-size: 0.875rem; color: var(--text-mid); font-weight: 500; }
+    .upload-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+    #fileInput { display: none; }
+    #fileName { font-size: 0.82rem; color: var(--green); font-weight: 600; margin-top: 8px; display: none; }
+
+    /* INSTRUCTIONS */
+    .instructions-box { background: #fffbf0; border: 1px solid rgba(200,153,58,0.3); border-radius: var(--radius-md); padding: 24px; margin-bottom: 28px; }
+    .instructions-box h4 { font-family: var(--ff-display); font-size: 1rem; color: var(--navy); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .instructions-list { display: flex; flex-direction: column; gap: 12px; }
+    .instruction-item { display: flex; gap: 12px; align-items: flex-start; }
+    .instruction-num { background: var(--gold); color: var(--navy); font-size: 0.75rem; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .instruction-text { font-size: 0.875rem; color: var(--text-mid); line-height: 1.6; }
+    .instruction-text strong { color: var(--navy); }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      width: 100%; background: var(--gold); color: var(--navy);
+      font-family: var(--ff-body); font-weight: 700; font-size: 1.05rem;
+      padding: 18px 32px; border-radius: var(--radius-sm);
+      border: none; cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,153,58,0.4); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .submit-note { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; }
+
+    /* SUCCESS SCREEN */
+    #successScreen { display: none; }
+    .success-card { background: var(--white); border: 2px solid var(--green); border-radius: var(--radius-lg); padding: 48px; text-align: center; }
+    .success-icon { font-size: 4rem; margin-bottom: 20px; }
+    .success-card h2 { font-family: var(--ff-display); font-size: 2rem; color: var(--navy); margin-bottom: 12px; }
+    .success-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 8px; }
+    .success-card .ref-num { background: var(--cream); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 20px; display: inline-block; font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--navy); margin: 16px 0; letter-spacing: 0.1em; }
+    .success-next { background: var(--green-light); border: 1px solid rgba(26,122,58,0.2); border-radius: var(--radius-md); padding: 20px 24px; margin-top: 24px; text-align: left; }
+    .success-next h4 { color: var(--green); font-family: var(--ff-display); margin-bottom: 12px; }
+    .success-next ul { display: flex; flex-direction: column; gap: 8px; }
+    .success-next li { font-size: 0.875rem; color: var(--text-mid); display: flex; gap: 8px; }
+    .success-next li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* FOOTER */
+    .footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 36px 0 24px; margin-top: 48px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+
+    @media (max-width: 900px) {
+      .checkout-layout { grid-template-columns: 1fr; }
+      .order-summary { position: static; }
+      .bank-details-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .progress-steps { gap: 0; }
+      .prog-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-wrapper">
+    <nav class="nav-inner">
+      <a href="../index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="var(--gold)"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#1a1208" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Lex<strong>Vault</strong></span>
+      </a>
+      <div class="nav-secure">
+        <span>🔒</span> Secure Checkout
+      </div>
+    </nav>
+  </header>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar">
+    <div class="container">
+      <div class="progress-steps">
+        <div class="prog-step done">
+          <div class="prog-circle">✓</div>
+          <div class="prog-label">Browse</div>
+        </div>
+        <div class="prog-step active">
+          <div class="prog-circle">02</div>
+          <div class="prog-label">Checkout</div>
+        </div>
+        <div class="prog-step">
+          <div class="prog-circle">03</div>
+          <div class="prog-label">Download</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="checkout-layout">
+
+      <!-- MAIN CHECKOUT -->
+      <div class="checkout-main" id="checkoutForm">
+        <h2>Secure Checkout</h2>
+        <p class="section-desc">Complete your purchase by transferring payment to our bank account below, then submit your order details.</p>
+
+        <!-- BANK DETAILS -->
+        <div class="bank-card">
+          <div class="bank-card-header">
+            <div class="hbl-logo">HBL</div>
+            <div class="bank-card-header-text">
+              <h3>Habib Bank Limited</h3>
+              <p>Transfer the exact amount to the account below</p>
+            </div>
+          </div>
+          <div class="bank-details-grid">
+            <div class="bank-detail-item">
+              <div class="bank-detail-label">Account Title</div>
+              <div class="bank-detail-value">ABDU SHAKOOR</div>
+              <button class="copy-btn" onclick="copyText('ABDU SHAKOOR', this)">Copy</button>
+            </div>
+            <div class="bank-detail-item">
+              <div class="bank-detail-label">Account Number</div>
+              <div class="bank-detail-value">0670-7902550603</div>
+              <button class="copy-btn" onclick="copyText('06707902550603', this)">Copy</button>
+            </div>
+            <div class="bank-detail-item full-width">
+              <div class="bank-detail-label">IBAN</div>
+              <div class="bank-detail-value iban">PK16 HABB 0006 7079 0255 0603</div>
+              <button class="copy-btn" onclick="copyText('PK16HABB0006707902550603', this)">Copy</button>
+            </div>
+            <div class="bank-detail-item">
+              <div class="bank-detail-label">Bank</div>
+              <div class="bank-detail-value" style="font-size:0.9rem;">Habib Bank Limited</div>
+            </div>
+            <div class="bank-detail-item">
+              <div class="bank-detail-label">Branch</div>
+              <div class="bank-detail-value" style="font-size:0.85rem;">HBL KAROR LAL EASON</div>
+            </div>
+          </div>
+          <div class="amount-highlight">
+            <div class="amount-highlight-label">Exact Transfer Amount</div>
+            <div class="amount-highlight-value">$14.00</div>
+          </div>
+        </div>
+
+        <!-- INSTRUCTIONS -->
+        <div class="instructions-box">
+          <h4>📋 How to Complete Your Order</h4>
+          <div class="instructions-list">
+            <div class="instruction-item">
+              <div class="instruction-num">1</div>
+              <div class="instruction-text">Transfer exactly <strong>$14.00</strong> (or equivalent PKR) to the HBL account above using your bank's app or branch.</div>
+            </div>
+            <div class="instruction-item">
+              <div class="instruction-num">2</div>
+              <div class="instruction-text">Take a <strong>screenshot or photo</strong> of your payment confirmation / transaction receipt.</div>
+            </div>
+            <div class="instruction-item">
+              <div class="instruction-num">3</div>
+              <div class="instruction-text">Fill in the form below with your <strong>name, email, and transaction ID</strong>, then upload your payment screenshot.</div>
+            </div>
+            <div class="instruction-item">
+              <div class="instruction-num">4</div>
+              <div class="instruction-text">Once we verify your payment (usually within <strong>1–3 hours</strong>), we'll send the PDF directly to your email.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDER FORM -->
+        <div class="payment-form-card">
+          <h3>Submit Your Order</h3>
+          <p class="form-desc">After completing your bank transfer, fill in your details below so we can verify your payment and send you the eBook.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="required">*</span></label>
+              <input type="text" class="form-input" id="fullName" placeholder="e.g. John Smith" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address <span class="required">*</span></label>
+              <input type="email" class="form-input" id="emailAddr" placeholder="you@example.com" required />
+              <div class="form-hint">📧 Your PDF will be sent to this address</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Transaction / Reference ID <span class="required">*</span></label>
+              <input type="text" class="form-input" id="txnId" placeholder="e.g. TXN123456789" required />
+              <div class="form-hint">Found on your bank receipt or transaction history</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Amount Transferred <span class="required">*</span></label>
+              <input type="text" class="form-input" id="amtPaid" placeholder="e.g. $14.00 or PKR 3,900" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
+            <input type="text" class="form-input" id="phoneNum" placeholder="+92 300 0000000" />
+            <div class="form-hint">In case we need to reach you about your order</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Payment Screenshot / Receipt <span class="required">*</span></label>
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+              <div class="upload-icon" id="uploadIcon">📎</div>
+              <div class="upload-text" id="uploadText">Click to upload your payment screenshot</div>
+              <div class="upload-hint">PNG, JPG, PDF — Max 10MB</div>
+              <div id="fileName"></div>
+            </div>
+            <input type="file" id="fileInput" accept="image/*,.pdf" onchange="handleFileSelect(this)" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Any Notes <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
+            <textarea class="form-input" id="notes" rows="3" placeholder="Any additional information about your payment..."></textarea>
+          </div>
+
+          <button class="btn-submit" id="submitBtn" onclick="submitOrder()">
+            ✅ Submit Order — $14.00
+          </button>
+          <p class="submit-note">🔒 Your information is secure. PDF delivery within 1–3 hours of payment verification.</p>
+        </div>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      <div id="successScreen" style="display:none; padding: 48px 0 80px;">
+        <div class="success-card">
+          <div class="success-icon">🎉</div>
+          <h2>Order Submitted!</h2>
+          <p>Thank you! Your order has been received. We'll verify your payment and send your eBook.</p>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Check your inbox (and spam folder) at: <strong id="confirmEmail" style="color:var(--navy);"></strong></p>
+          <div class="ref-num" id="refNum">LV-000000</div>
+          <p style="font-size:0.82rem; color:var(--text-muted);">Save this reference number for your records</p>
+          <div class="success-next">
+            <h4>What Happens Next</h4>
+            <ul>
+              <li>We'll verify your HBL bank transfer (usually 1–3 hours)</li>
+              <li>Your PDF will be sent to your email address</li>
+              <li>You'll receive lifetime access — download anytime</li>
+              <li>Questions? Email us at support@lexvault.com</li>
+            </ul>
+          </div>
+          <a href="../index.html" style="display:inline-block; margin-top:24px; background:var(--navy); color:var(--gold); font-family:var(--ff-body); font-weight:600; padding:12px 28px; border-radius:var(--radius-sm); transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">← Back to LexVault</a>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY SIDEBAR -->
+      <div>
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="order-item">
+            <div class="order-item-cover">⚖️</div>
+            <div class="order-item-info">
+              <div class="order-item-cat">Evidence Law</div>
+              <div class="order-item-title">Federal Rules of Evidence</div>
+              <div class="order-item-meta">2026 Edition · PDF Download<br>Hon. James R. Caldwell, J.D.</div>
+            </div>
+          </div>
+          <div class="order-totals">
+            <div class="total-row"><span>Subtotal</span><span>$14.00</span></div>
+            <div class="total-row"><span>Delivery</span><span style="color:var(--green);">Free</span></div>
+            <div class="total-row"><span>Tax</span><span>$0.00</span></div>
+            <div class="total-row final"><span>Total</span><span>$14.00</span></div>
+          </div>
+          <div class="security-badges">
+            <div class="sec-badge"><span>🔒</span> Secure bank transfer via HBL</div>
+            <div class="sec-badge"><span>📧</span> Instant email delivery</div>
+            <div class="sec-badge"><span>♾️</span> Lifetime PDF access</div>
+            <div class="sec-badge"><span>📱</span> Read on any device</div>
+          </div>
+        </div>
+
+        <!-- NEED HELP -->
+        <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); padding:20px; margin-top:20px;">
+          <h4 style="font-family:var(--ff-display); font-size:1rem; color:var(--navy); margin-bottom:10px;">Need Help?</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Having trouble with your order? Contact us and we'll assist you within a few hours.</p>
+          <a href="contact.html" style="display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:0.875rem; font-weight:600; color:var(--gold);">✉️ Contact Support →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2025 LexVault. All rights reserved.</p>
+        <p>Bank payments processed via <strong style="color:rgba(255,255,255,0.7)">Habib Bank Limited (HBL)</strong></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    function handleFileSelect(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const area = document.getElementById('uploadArea');
+        const icon = document.getElementById('uploadIcon');
+        const text = document.getElementById('uploadText');
+        const fname = document.getElementById('fileName');
+        area.classList.add('has-file');
+        icon.textContent = '✅';
+        text.textContent = 'File selected';
+        fname.style.display = 'block';
+        fname.textContent = file.name;
+      }
+    }
+
+    function submitOrder() {
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('emailAddr').value.trim();
+      const txn = document.getElementById('txnId').value.trim();
+      const amt = document.getElementById('amtPaid').value.trim();
+      const file = document.getElementById('fileInput').files[0];
+
+      if (!name || !email || !txn || !amt) {
+        alert('Please fill in all required fields (Name, Email, Transaction ID, Amount).');
+        return;
+      }
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      if (!file) {
+        alert('Please upload your payment screenshot or receipt.');
+        return;
+      }
+
+      // Generate reference number
+      const ref = 'LV-' + Date.now().toString().slice(-6);
+
+      // Show success
+      document.getElementById('checkoutForm').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      document.getElementById('confirmEmail').textContent = email;
+      document.getElementById('refNum').textContent = ref;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
